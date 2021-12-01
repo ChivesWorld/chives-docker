@@ -1,12 +1,12 @@
 FROM ubuntu:latest
 
-## full_node_peer
+## full_node_peer (xch 8444)
 EXPOSE 9699 
 
-## full_node rpc_port
+## full_node rpc_port (xch 8555)
 EXPOSE 9755
 
- ## wallet rpc_port
+ ## wallet rpc_port [xch 9256]
 EXPOSE 9856
 
 ENV CHIVES_ROOT=/root/.chives/mainnet
@@ -18,6 +18,8 @@ ENV farmer_address="null"
 ENV farmer_port="null"
 ENV testnet="false"
 ENV TZ="UTC"
+ENV upnp="true"
+ENV log_to_file="true"
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y bc curl lsb-release python3 tar bash ca-certificates git openssl unzip wget python3-pip sudo acl build-essential python3-dev python3.8-venv python3.8-distutils python-is-python3 vim tzdata && \
     rm -rf /var/lib/apt/lists/* && \
