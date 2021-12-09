@@ -26,7 +26,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && DEBIAN_FRONTEND=noninteract
     ln -snf "/usr/share/zoneinfo/$TZ" /etc/localtime && echo "$TZ" > /etc/timezone && \
     dpkg-reconfigure -f noninteractive tzdata
 
-ARG BRANCH=V1.1.906
+ARG BRANCH=1.2.11
 
 RUN echo "cloning ${BRANCH}" && \
     git clone --branch ${BRANCH} https://github.com/ChivesWorld/chives-blockchain.git && \
