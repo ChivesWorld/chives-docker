@@ -1,7 +1,8 @@
 FROM ubuntu:latest
 
 ## full_node_peer (xch 8444)
-EXPOSE 9699 
+EXPOSE 9699
+EXPOSE 59699
 
 ## full_node rpc_port (xch 8555)
 EXPOSE 9755

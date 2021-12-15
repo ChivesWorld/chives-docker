@@ -56,4 +56,6 @@ else
   sed -i 's/log_stdout: true/log_stdout: false/g' "$CHIVES_ROOT/config/config.yaml"
 fi
 
+sh install-timelord.sh
+
 exec "$@"

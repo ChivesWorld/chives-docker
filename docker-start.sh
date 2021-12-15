@@ -12,7 +12,7 @@ elif [[ ${harvester} == 'true' ]]; then
     chives start harvester
   fi
 else
-  chives start farmer
+  chives start all
 fi
 
 trap "chives stop all -d; exit 0" SIGINT SIGTERM
