@@ -49,6 +49,9 @@ if [[ -n "${log_level}" ]]; then
 fi
 
 sed -i 's/localhost/127.0.0.1/g' "$CHIVES_ROOT/config/config.yaml"
+sed -i 's/self_hostname: 127.0.0.1/self_hostname: blockchain/g' "$CHIVES_ROOT/config/config.yaml"
+sed -i 's/host: beta1_introducer.chivescoin.org/host: blockchain/g' "$CHIVES_ROOT/config/config.yaml"
+
 
 if [[ ${log_to_file} != 'true' ]]; then
   sed -i 's/log_stdout: false/log_stdout: true/g' "$CHIVES_ROOT/config/config.yaml"
