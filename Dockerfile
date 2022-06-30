@@ -11,15 +11,19 @@ EXPOSE 9856
 
 ENV CHIVES_ROOT=/root/.chives/mainnet
 ENV keys="generate"
-ENV harvester="false"
-ENV farmer="false"
+ENV service="farmer"
 ENV plots_dir="/plots"
-ENV farmer_address="null"
-ENV farmer_port="null"
+ENV farmer_address=
+ENV farmer_port=
 ENV testnet="false"
 ENV TZ="UTC"
 ENV upnp="true"
 ENV log_to_file="true"
+ENV healthcheck="true"
+
+# Deprecated legacy options
+ENV harvester="false"
+ENV farmer="false"
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y bc curl lsb-release python3 tar bash ca-certificates git openssl unzip wget python3-pip sudo acl build-essential python3-dev python3.8-venv python3.8-distutils python-is-python3 vim tzdata && \
@@ -40,8 +44,14 @@ WORKDIR /chives-blockchain
 
 COPY docker-start.sh /usr/local/bin/
 COPY docker-entrypoint.sh /usr/local/bin/
+COPY docker-healthcheck.sh /usr/local/bin/
 
-RUN chmod +x /usr/local/bin/docker-start.sh && chmod +x /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-start.sh && \
+    chmod +x /usr/local/bin/docker-entrypoint.sh && \
+    chmod +x /usr/local/bin/docker-healthcheck.sh
+
+HEALTHCHECK --interval=1m --timeout=10s --start-period=20m \
+  CMD /bin/bash /usr/local/bin/docker-healthcheck.sh || exit 1
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["docker-start.sh"]

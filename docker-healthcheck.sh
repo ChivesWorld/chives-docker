@@ -14,7 +14,7 @@ logger () {
     if [[ ${log_to_file} != 'true' ]]; then
         echo "$1" >> /proc/1/fd/1
     else
-        echo "$1" >> "${CHIA_ROOT}/log/debug.log"
+        echo "$1" >> "${CHIVES_ROOT}/log/debug.log"
     fi
 }
 
@@ -66,9 +66,9 @@ done
 
 if [[ ${node_check} == "true" ]]; then
     curl -X POST --fail \
-      --cert "${CHIA_ROOT}/config/ssl/full_node/private_full_node.crt" \
-      --key "${CHIA_ROOT}/config/ssl/full_node/private_full_node.key" \
-      -d '{}' -k -H "Content-Type: application/json" https://localhost:8555/healthz
+      --cert "${CHIVES_ROOT}/config/ssl/full_node/private_full_node.crt" \
+      --key "${CHIVES_ROOT}/config/ssl/full_node/private_full_node.key" \
+      -d '{}' -k -H "Content-Type: application/json" https://localhost:9755/healthz
 
     # shellcheck disable=SC2181
     if [[ "$?" -ne 0 ]]; then
@@ -79,9 +79,9 @@ fi
 
 if [[ ${farmer_check} == "true" ]]; then
     curl -X POST --fail \
-      --cert "${CHIA_ROOT}/config/ssl/farmer/private_farmer.crt" \
-      --key "${CHIA_ROOT}/config/ssl/farmer/private_farmer.key" \
-      -d '{}' -k -H "Content-Type: application/json" https://localhost:8559/healthz
+      --cert "${CHIVES_ROOT}/config/ssl/farmer/private_farmer.crt" \
+      --key "${CHIVES_ROOT}/config/ssl/farmer/private_farmer.key" \
+      -d '{}' -k -H "Content-Type: application/json" https://localhost:9759/healthz
 
     # shellcheck disable=SC2181
     if [[ "$?" -ne 0 ]]; then
@@ -92,9 +92,9 @@ fi
 
 if [[ ${harvester_check} == "true" ]]; then
     curl -X POST --fail \
-      --cert "${CHIA_ROOT}/config/ssl/harvester/private_harvester.crt" \
-      --key "${CHIA_ROOT}/config/ssl/harvester/private_harvester.key" \
-      -d '{}' -k -H "Content-Type: application/json" https://localhost:8560/healthz
+      --cert "${CHIVES_ROOT}/config/ssl/harvester/private_harvester.crt" \
+      --key "${CHIVES_ROOT}/config/ssl/harvester/private_harvester.key" \
+      -d '{}' -k -H "Content-Type: application/json" https://localhost:9760/healthz
 
     # shellcheck disable=SC2181
     if [[ "$?" -ne 0 ]]; then
@@ -105,9 +105,9 @@ fi
 
 if [[ ${wallet_check} == "true" ]]; then
     curl -X POST --fail \
-      --cert "${CHIA_ROOT}/config/ssl/wallet/private_wallet.crt" \
-      --key "${CHIA_ROOT}/config/ssl/wallet/private_wallet.key" \
-      -d '{}' -k -H "Content-Type: application/json" https://localhost:9256/healthz
+      --cert "${CHIVES_ROOT}/config/ssl/wallet/private_wallet.crt" \
+      --key "${CHIVES_ROOT}/config/ssl/wallet/private_wallet.key" \
+      -d '{}' -k -H "Content-Type: application/json" https://localhost:9856/healthz
 
     # shellcheck disable=SC2181
     if [[ "$?" -ne 0 ]]; then
